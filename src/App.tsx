@@ -158,7 +158,7 @@ export default function App() {
           </div>
 
           {/* Calendar Grid */}
-          <div className="grid grid-cols-7 gap-px bg-zinc-50 border border-zinc-50 rounded-xl overflow-hidden">
+          <div className="grid grid-cols-7 gap-[2px] bg-zinc-100 border border-zinc-100 rounded-xl overflow-hidden">
             {days.map((day, idx) => {
               const status = getShiftStatus(day, config);
               const isToday = isSameDay(day, today);
@@ -168,37 +168,49 @@ export default function App() {
                 <div 
                   key={idx}
                   className={cn(
-                    "aspect-square relative flex flex-col items-center justify-center bg-white group cursor-default p-1",
-                    !isCurrentMonth && "bg-zinc-50/50"
+                    "aspect-square relative flex flex-col items-center justify-center transition-all duration-300 group cursor-default p-1",
+                    !isCurrentMonth ? "bg-zinc-50/30 opacity-40" : (
+                      status === 'work' 
+                        ? "bg-red-50" 
+                        : "bg-green-50"
+                    )
                   )}
                 >
-                  {/* Indicator Dot */}
+                  {/* Status Indicator Bar */}
                   <div className={cn(
-                    "w-1 h-1 rounded-full mb-1",
-                    status === 'work' ? "bg-red-400" : "bg-green-400"
+                    "absolute top-0 inset-x-0 h-1",
+                    status === 'work' ? "bg-red-200" : "bg-green-200"
                   )} />
-                  
+
                   <span className={cn(
-                    "text-sm font-medium z-10 transition-colors",
-                    !isCurrentMonth ? "text-zinc-300" : "text-zinc-700",
-                    isToday && "text-white"
+                    "text-sm font-bold z-10 transition-colors",
+                    !isCurrentMonth ? "text-zinc-300" : (
+                      status === 'work' ? "text-red-700" : "text-green-700"
+                    ),
+                    isToday && "text-white!"
                   )}>
                     {format(day, 'd')}
+                  </span>
+
+                  <span className={cn(
+                    "text-[8px] font-bold mt-0.5 z-10",
+                    !isCurrentMonth ? "hidden" : "block",
+                    status === 'work' ? "text-red-400" : "text-green-400",
+                    isToday && "text-white/80!"
+                  )}>
+                    {status === 'work' ? '班' : '休'}
                   </span>
 
                   {/* Today Highlight */}
                   {isToday && (
                     <motion.div 
                       layoutId="today-highlight"
-                      className="absolute inset-2 bg-zinc-900 rounded-lg -z-0"
+                      className="absolute inset-1.5 bg-zinc-900 rounded-lg -z-0 shadow-lg"
                     />
                   )}
 
-                  {/* Status Overlay on hover */}
-                  <div className={cn(
-                    "absolute bottom-0 inset-x-0 h-1 hidden group-hover:block transition-all",
-                    status === 'work' ? "bg-red-500" : "bg-green-500"
-                  )} />
+                  {/* Hover Effect */}
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors pointer-events-none" />
                 </div>
               );
             })}
