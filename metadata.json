@@ -1,0 +1,6 @@
+{
+  "name": "ShiftEase (排班助手)",
+  "description": "设计一款日历app，方便用户输入上几休几和查看当天是否排班，未来某天是否排班",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
