@@ -79,7 +79,7 @@ export default function App() {
             <CalendarDays size={20} />
           </div>
           <div>
-            <h1 className="font-serif text-xl font-bold tracking-tight">ShiftEase</h1>
+            <h1 className="font-serif text-xl font-bold tracking-tight">天时上班</h1>
             <p className="text-[10px] uppercase tracking-widest text-zinc-400 font-medium font-sans">我的排班助手</p>
           </div>
         </div>
